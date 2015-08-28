@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="css/materialize-icons.css" rel="stylesheet" />
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div class="navbar-fixed ">
+		<nav class="teal">
+			<div class="nav-wrapper" style="padding-left: 20px;">
+				<a href="#!" class="brand-logo">Events Creator</a> <a href="#" data-activates="mobile-demo"
+					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br>
+	<div class="row">
+		<div class="container">
+			<center><h4 class="teal-text"><img class="responsive-img" src="img/budget.jpg" width=50px height=auto><br>Budget Tracker</h4></center>
+		</div>
+	</div>
+	<div class="row">
+		<form class="col s12">
+		<div class="row">
+			<div class="col s12">
+				<ul class="collection">
+					<li class="collection-item">Total Budget:&nbsp;<span class="right-align" data-bind="text: $root.TotalBudget"></span></li>
+					<li class="collection-item">Expenses:&nbsp;<span class="right-align" data-bind="text: $root.TotalExpenses"></span></li>
+					<li class="collection-item">Supplies:&nbsp;<span class="right-align" data-bind="text: $root.TotalSupplies"></span></li>
+					<li class="collection-item">Food:&nbsp;<span class="right-align" data-bind="text: $root.TotalFoods"></span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="center">
+				<a class="waves-effect waves-light btn modal-trigger col s12" href="#modal1">Add Budget</a><br>
+				<br>
+				<a class="waves-effect waves-light btn modal-trigger col s12" href="#expense-modal">
+					Add Expense</a>
+			</div>
+		</div>
+		</form>
+	</div>
+	<!-- Modal Trigger -->
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>
+				Add Budget</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: $root.NewBudget">
+					<label for="evanue">
+						Budget Amount</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate">
+					<label for="evanue">
+						Details</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"
+				data-bind="click: $root.AddBudget">ADD</a>
+		</div>
+	</div>
+	<div id="expense-modal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>
+				Add Expense</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<select data-bind="options: $root.ExpenseTypes, optionsText: $data, optionsValue: $data, value: $root.SelectedExpenseType">
+					</select>
+					<label>
+						Expense Type</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: $root.NewExpense">
+					<label for="evanue">
+						Amount</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"
+				data-bind="click: $root.AddExpense">ADD</a>
+		</div>
+	</div>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/models.js"></script>
+	<script type="text/javascript" src="js/viewmodel.budgetTracker.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
