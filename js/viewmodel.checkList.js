@@ -25,16 +25,25 @@ function CheckListViewModel(){
 		self.NewFood(new Food({}));
 	};
 	self.DeleteGuest = function (guest) {
-		self.Guests.remove(guest);
-		self.UpdateLocalStorage();
+		var _response = confirm("Are you sure you want to remove \"" + guest.GuestName() + "\" in your guestlist?");
+		if(_response){
+			self.Guests.remove(guest);
+			self.UpdateLocalStorage();
+		}
 	};
 	self.DeleteSupply = function (supply){
-		self.Supplies.remove(supply);
-		self.UpdateLocalStorage();
+		var _response = confirm("Are you sure you want to remove \"" + supply.SupplyName() + "\" in your list?");
+		if(_response){
+			self.Supplies.remove(supply);
+			self.UpdateLocalStorage();
+		}
 	};
 	self.DeleteFood = function (food) {
-		self.Foods.remove(food);
-		self.UpdateLocalStorage();
+		var _response = confirm("Are you sure you want to remove \"" + food.FoodName() + "\" in your list?");
+		if(_response){
+			self.Foods.remove(food);
+			self.UpdateLocalStorage();
+		}
 	};
 	self.UpdateLocalStorage = function() {
 		try{
