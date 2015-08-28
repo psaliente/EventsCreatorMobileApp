@@ -48,4 +48,4 @@ function IndexViewModel(){
 
 var ivm = new IndexViewModel();
 $(document).ready(function(){ko.applyBindings(ivm);ivm.RetrieveEvents()});
- contents here
+
