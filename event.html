@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div class="navbar-fixed ">
+		<nav class="teal">
+			<div class="nav-wrapper" style="padding-left: 20px;">
+				<a href="#!" class="brand-logo">Events Creator</a> <a href="#" data-activates="mobile-demo"
+					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Task Tracker</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br>
+	<div class="row">
+		<div class="container">
+			<h4 class="teal-text">
+				<center>Saved Events</center>
+			</h4>
+			<div class="col s12">
+				<!-- ko foreach: $root.Events -->
+				<div class="col s10">
+					<h4 data-bind="text: EventName">
+					</h4>
+					<span data-bind="text: $root.getCategoryName(Category())"></span>&nbsp;/&nbsp;<span
+						data-bind="text: EventDate"></span><br />
+					<p data-bind="text: Venue">
+					</p>
+				</div>
+				<div class="col s2">
+					<a href="#" class="waves-effect waves-light btn-flat red-text" data-bind="click: $root.RemoveEvent"
+						title="Delete Event">X</a>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: $root.Events().length == 0 -->
+				<center><h4>No saved events yet!</h4></center>
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("frm1");
+			var text = "";
+			var i;
+			for (i = 0; i < x.length; i++) {
+				text += x.elements[i].value + "<br>";
+			}
+			document.getElementById("demo").innerHTML = text;
+		}
+	</script>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/models.js"></script>
+	<script type="text/javascript" src="js/viewmodel.event.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
