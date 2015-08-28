@@ -41,4 +41,4 @@ function EventViewModel(){
 
 var evm = new EventViewModel();
 
-$(document).ready(function () {ko.applyBindings(evm);evm.LoadFromStorage();});here
+$(document).ready(function () {ko.applyBindings(evm);evm.LoadFromStorage();});
