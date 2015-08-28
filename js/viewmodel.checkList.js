@@ -1,4 +1,4 @@
-Enter file contents herefunction CheckListViewModel(){
+function CheckListViewModel(){
 	var self = this;
 	//public properties
 	self.NewGuest = ko.observable(new Guest({}));
