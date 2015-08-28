@@ -1,4 +1,4 @@
-Enter file contents function EventViewModel(){
+function EventViewModel(){
 	var self = this;
 	//public properties
 	self.SelectedEvent = ko.observable();
