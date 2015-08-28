@@ -1,4 +1,4 @@
-Enter filefunction IndexViewModel(){
+function IndexViewModel(){
 	//private properties
 	var self = this;
 	var IDCounter = 0;
