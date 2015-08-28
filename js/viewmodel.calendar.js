@@ -78,7 +78,7 @@ Enter file contents herefunction CalendarViewModel() {
 	self.UpdateLocalStorage = function() {
 		try{
 			var jsonTasks = ko.toJSON(self.EventTasks());
-			var jsonEvents = ko.toJSON(seld.Events());
+			var jsonEvents = ko.toJSON(self.Events());
 			window.localStorage.setItem('ProjectEventTasks',jsonTasks);
 			window.localStorage.setItem('ProjectEvents',jsonEvents);
 		}
