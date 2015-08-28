@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="css/materialize-icons.css" rel="stylesheet" />
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div class="navbar-fixed ">
+		<nav class="teal" style="box-shadow: none !important;">
+			<div class="nav-wrapper" style="padding-left: 20px;">
+				<a href="#!" class="brand-logo">Events Creator</a> <a href="#" data-activates="mobile-demo"
+					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<ul class="tabs teal z-depth-1">
+		<li class="tab col s3"><a class="active" href="#test1" class=" white-text">Guest</a></li>
+		<li class="tab col s3"><a href="#test2" class=" white-text">Supplies</a></li>
+		<li class="tab col s3"><a href="#test4" class=" white-text">Food</a></li>
+	</ul>
+	<div id="test1" class="col s12">
+		<div class="container">
+			<div class="col s12">
+				<table class="bordered hoverable">
+					<tbody data-bind="foreach: $root.Guests">
+						<tr>
+							<td>
+								<i class="material-icons">perm_identity</i>&nbsp;<input type="checkbox" data-bind="checked: WillAttend"
+									class="validate" />
+							</td>
+							<td>
+								<span data-bind="text: GuestName"></span>
+							</td>
+							<td>
+								<span data-bind="text: Contact"></span>
+							</td>
+							<td>
+								<a href="#" class="waves-effect waves-light btn-floating red" data-bind="click: $root.DeleteGuest"
+									title="Delete Guest"><i>x</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- ko if: $root.Guests().length == 0-->
+				<h4 class="center-align">
+					No guests yet.</h4>
+				<!-- /ko -->
+			</div>
+		</div>
+		<div class="fixed-action-btn" style="bottom: 10px; right: 10px;">
+			<a class="modal-trigger waves-effect waves-light btn-floating btn-large teal" href="#modal-food">
+				<i class="large mdi-content-add"></i></a>
+		</div>
+	</div>
+	<div id="test2" class="col s12">
+		<div class="container">
+			<div class="col s12">
+				<table class="bordered hoverable">
+					<tbody data-bind="foreach: $root.Supplies">
+						<tr>
+							<td>
+								<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked"
+									class="validate" />
+							</td>
+							<td>
+								<span data-bind="text: SupplyName"></span>
+							</td>
+							<td>
+								<span data-bind="text: Amount"></span>
+							</td>
+							<td>
+								<a href="#" class="waves-effect waves-light btn-floating red" data-bind="click: $root.DeleteSupply"
+									title="Delete Supply"><i>x</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- ko if: $root.Supplies().length == 0-->
+				<h4 class="center-align">
+					No supplies yet.</h4>
+				<!-- /ko -->
+			</div>
+		</div>
+		<div class="fixed-action-btn" style="bottom: 10px; right: 10px;">
+			<a class="modal-trigger waves-effect waves-light btn-floating btn-large teal" href="#modal-supplies">
+				<i class="large mdi-content-add"></i></a>
+		</div>
+	</div>
+	<div id="test4" class="col s12">
+		<div class="container">
+			<div class="col s12">
+				<table class="bordered hoverable">
+					<tbody data-bind="foreach: $root.Foods">
+						<tr>
+							<td>
+								<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked"
+									class="validate" />
+							</td>
+							<td>
+								<span data-bind="text: FoodName"></span>
+							</td>
+							<td>
+								<span data-bind="text: Amount"></span>
+							</td>
+							<td>
+								<a href="#" class="waves-effect waves-light btn-floating red" data-bind="click: $root.DeleteFood"
+									title="Delete Food"><i>x</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- ko if: $root.Foods().length == 0-->
+				<h4 class="center-align">
+					No foods yet.</h4>
+				<!-- /ko -->
+			</div>
+		</div>
+		<div class="fixed-action-btn" style="bottom: 10px; right: 10px;">
+			<a class="modal-trigger waves-effect waves-light btn-floating btn-large teal" href="#modal-guest">
+				<i class="large mdi-content-add"></i></a>
+		</div>
+	</div>
+	<!-- Modal Structure -->
+	<div id="modal-guest" class="modal modal-fixed-footer">
+		<div class="modal-content" data-bind="with: $root.NewFood">
+			<h4>
+				Add Food</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: FoodName">
+					<label for="evanue">
+						Food Name</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: Amount">
+					<label for="evanue">
+						Amount</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat "
+				data-bind="click: $root.AddFood">ADD</a>
+		</div>
+	</div>
+	<div id="modal-supplies" class="modal modal-fixed-footer">
+		<div class="modal-content" data-bind="with: $root.NewSupply">
+			<h4>
+				Add Supplies</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: SupplyName">
+					<label for="evanue">
+						Supplies Name</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: Amount">
+					<label for="evanue">
+						Amount</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat "
+				data-bind="click: $root.AddSupply">ADD</a>
+		</div>
+	</div>
+	<div id="modal-food" class="modal modal-fixed-footer">
+		<div class="modal-content" data-bind="with: $root.NewGuest">
+			<h4>
+				Add Guest</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: GuestName">
+					<label for="evanue">
+						Guest Name</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: Contact">
+					<label for="evanue">
+						Contact</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat "
+				data-bind="click: $root.AddGuest">ADD</a>
+		</div>
+	</div>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/models.js"></script>
+	<script type="text/javascript" src="js/viewmodel.checkList.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
