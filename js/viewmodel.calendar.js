@@ -1,4 +1,4 @@
-Enter file contents herefunction CalendarViewModel() {
+function CalendarViewModel() {
 	var self = this;
 	//public properties
 	self.NewTask = ko.observable(new EventTask({}));
