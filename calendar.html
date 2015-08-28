@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="css/materialize-icons.css" rel="stylesheet" />
+	<link href='css/fullcalendar.css' rel='stylesheet' />
+	<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div class="navbar-fixed ">
+		<nav class="teal">
+			<div class="nav-wrapper" style="padding-left: 20px;">
+				<a href="#!" class="brand-logo">Events Creator</a> <a href="#" data-activates="mobile-demo"
+					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="event.html">Events</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
+					<li><a href="directory.html">Directory</a></li>
+					<li><a href="check-list.html">Checklist</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br>
+	<div class="row">
+		<div class="container">
+			<center><h4 class="teal-text"><img class="responsive-img" src="img/calendar.jpg" width=50px height=auto><br>Task Tracker</h4></center>
+		</div>
+	</div>
+	<div class="row">
+		<script language="JavaScript">
+<!-- Original:  Nick Korosi (nfk2000@hotmail.com) -->
+
+<!-- This script and many more are available free online at -->
+<!-- The JavaScript Source!! http://javascript.internet.com -->
+
+<!-- Begin
+var dDate = new Date();
+var dCurMonth = dDate.getMonth();
+var dCurDayOfMonth = dDate.getDate();
+var dCurYear = dDate.getFullYear();
+var objPrevElement = new Object();
+
+function fToggleColor(myElement) {
+var toggleColor = "#ff0000";
+if (myElement.id == "calDateText") {
+if (myElement.color == toggleColor) {
+myElement.color = "";
+} else {
+myElement.color = toggleColor;
+   }
+} else if (myElement.id == "calCell") {
+for (var i in myElement.children) {
+if (myElement.children[i].id == "calDateText") {
+if (myElement.children[i].color == toggleColor) {
+myElement.children[i].color = "";
+} else {
+myElement.children[i].color = toggleColor;
+            }
+         }
+      }
+   }
+}
+function fSetSelectedDay(myElement){
+if (myElement.id == "calCell") {
+if (!isNaN(parseInt(myElement.children["calDateText"].innerText))) {
+myElement.bgColor = "#c0c0c0";
+objPrevElement.bgColor = "";
+document.all.calSelectedDate.value = parseInt(myElement.children["calDateText"].innerText);
+document.all.calSelectedFullDate.value = new Date(frmCalendarSample.tbSelYear.value, frmCalendarSample.tbSelMonth.value - 1, frmCalendarSample.calSelectedDate.value);
+$("#calSelectedFullDate").trigger("change");
+objPrevElement = myElement;
+      }
+   }
+}
+function fGetDaysInMonth(iMonth, iYear) {
+var dPrevDate = new Date(iYear, iMonth, 0);
+return dPrevDate.getDate();
+}
+function fBuildCal(iYear, iMonth, iDayStyle) {
+var aMonth = new Array();
+aMonth[0] = new Array(7);
+aMonth[1] = new Array(7);
+aMonth[2] = new Array(7);
+aMonth[3] = new Array(7);
+aMonth[4] = new Array(7);
+aMonth[5] = new Array(7);
+aMonth[6] = new Array(7);
+var dCalDate = new Date(iYear, iMonth-1, 1);
+var iDayOfFirst = dCalDate.getDay();
+var iDaysInMonth = fGetDaysInMonth(iMonth, iYear);
+var iVarDate = 1;
+var i, d, w;
+if (iDayStyle == 2) {
+aMonth[0][0] = "Sunday";
+aMonth[0][1] = "Monday";
+aMonth[0][2] = "Tuesday";
+aMonth[0][3] = "Wednesday";
+aMonth[0][4] = "Thursday";
+aMonth[0][5] = "Friday";
+aMonth[0][6] = "Saturday";
+} else if (iDayStyle == 1) {
+aMonth[0][0] = "Sun";
+aMonth[0][1] = "Mon";
+aMonth[0][2] = "Tue";
+aMonth[0][3] = "Wed";
+aMonth[0][4] = "Thu";
+aMonth[0][5] = "Fri";
+aMonth[0][6] = "Sat";
+} else {
+aMonth[0][0] = "Su";
+aMonth[0][1] = "Mo";
+aMonth[0][2] = "Tu";
+aMonth[0][3] = "We";
+aMonth[0][4] = "Th";
+aMonth[0][5] = "Fr";
+aMonth[0][6] = "Sa";
+}
+for (d = iDayOfFirst; d < 7; d++) {
+aMonth[1][d] = iVarDate;
+iVarDate++;
+}
+for (w = 2; w < 7; w++) {
+for (d = 0; d < 7; d++) {
+if (iVarDate <= iDaysInMonth) {
+aMonth[w][d] = iVarDate;
+iVarDate++;
+      }
+   }
+}
+return aMonth;
+}
+function fDrawCal(iYear, iMonth, iCellWidth, iCellHeight, sDateTextSize, sDateTextWeight, iDayStyle) {
+var myMonth;
+myMonth = fBuildCal(iYear, iMonth, iDayStyle);
+document.write("<table border='1'>")
+document.write("<tr>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][0] + "</td>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][1] + "</td>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][2] + "</td>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][3] + "</td>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][4] + "</td>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][5] + "</td>");
+document.write("<td align='center' style='FONT-FAMILY:Arial;FONT-SIZE:12px;FONT-WEIGHT: bold'>" + myMonth[0][6] + "</td>");
+document.write("</tr>");
+for (w = 1; w < 7; w++) {
+document.write("<tr>")
+for (d = 0; d < 7; d++) {
+document.write("<td align='left' valign='top' width='" + iCellWidth + "' height='" + iCellHeight + "' id=calCell style='CURSOR:Hand' onMouseOver='fToggleColor(this)' onMouseOut='fToggleColor(this)' onclick=fSetSelectedDay(this) class='modal-trigger' data-target='modal-events'>");
+if (!isNaN(myMonth[w][d])) {
+document.write("<font id=calDateText onMouseOver='fToggleColor(this)' style='CURSOR:Hand;FONT-FAMILY:Arial;FONT-SIZE:" + sDateTextSize + ";FONT-WEIGHT:" + sDateTextWeight + "' onMouseOut='fToggleColor(this)' onclick=fSetSelectedDay(this)>" + myMonth[w][d] + "</font>");
+} else {
+document.write("<font id=calDateText onMouseOver='fToggleColor(this)' style='CURSOR:Hand;FONT-FAMILY:Arial;FONT-SIZE:" + sDateTextSize + ";FONT-WEIGHT:" + sDateTextWeight + "' onMouseOut='fToggleColor(this)' onclick=fSetSelectedDay(this)> </font>");
+}
+document.write("</td>")
+}
+document.write("</tr>");
+}
+document.write("</table>")
+}
+function fUpdateCal(iYear, iMonth) {
+myMonth = fBuildCal(iYear, iMonth);
+objPrevElement.bgColor = "";
+document.all.calSelectedDate.value = "";
+for (w = 1; w < 7; w++) {
+for (d = 0; d < 7; d++) {
+if (!isNaN(myMonth[w][d])) {
+calDateText[((7*w)+d)-7].innerText = myMonth[w][d];
+} else {
+calDateText[((7*w)+d)-7].innerText = " ";
+         }
+      }
+   }
+}
+// End -->
+		</script>
+	</div>
+	<form name="frmCalendarSample" method="post" action="">
+	<input type="hidden" name="calSelectedDate" value="" />
+	<input type="hidden" name="calSelectedFullDate" id="calSelectedFullDate" data-bind="value: $root.DateFilter" />
+	<table border="1">
+		<tr>
+			<td>
+				<select name="tbSelMonth" onchange='fUpdateCal(frmCalendarSample.tbSelYear.value, frmCalendarSample.tbSelMonth.value)'>
+					<option value="1">January</option>
+					<option value="2">February</option>
+					<option value="3">March</option>
+					<option value="4">April</option>
+					<option value="5">May</option>
+					<option value="6">June</option>
+					<option value="7">July</option>
+					<option value="8">August</option>
+					<option value="9">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12">December</option>
+				</select>
+				<select name="tbSelYear" onchange='fUpdateCal(frmCalendarSample.tbSelYear.value, frmCalendarSample.tbSelMonth.value)'>
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
+					<option value="2018">2018</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<script language="JavaScript">
+					var dCurDate = new Date();
+					fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth() + 1, 30, 30, "12px", "bold", 1);
+				</script>
+			</td>
+		</tr>
+	</table>
+	</form>
+	<script language="JavaScript" for="window" event="onload">
+<!-- Begin
+var dCurDate = new Date();
+frmCalendarSample.tbSelMonth.options[dCurDate.getMonth()].selected = true;
+for (i = 0; i < frmCalendarSample.tbSelYear.length; i++)
+if (frmCalendarSample.tbSelYear.options[i].value == dCurDate.getFullYear())
+frmCalendarSample.tbSelYear.options[i].selected = true;
+//  End -->
+	</script>
+	<div id="test4" class="col s12">
+		<div class="fixed-action-btn" style="bottom: 10px; right: 10px;">
+			<a class="waves-effect waves-light btn-floating btn-large teal"><i class="large material-icons">
+				assignment</i> </a>
+			<ul>
+				<li><a class="modal-trigger waves-effect waves-light btn-floating teal" href="#modal-task"
+					title="Add Task"><i class="mdi-content-add"></i></a></li>
+				<li><a class="modal-trigger waves-effect waves-light btn-floating teal" href="#modal-tasklist"
+					title="View All Tasks"><i class="material-icons">list</i> </a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="modal-task" class="modal modal-fixed-footer">
+		<div class="modal-content" data-bind="with: $root.NewTask">
+			<h4>
+				Add Task</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: TaskTitle">
+					<label for="evanue">
+						Task</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="evanue" type="text" class="validate" data-bind="value: TaskDetail">
+					<label for="evanue">
+						Details</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input class="datepicker" type="date" name="tdate" class="validate" data-bind="value: TaskDate">
+					<label for="tdate">
+						Task Date</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" data-bind="click: $root.AddTask">
+				ADD</a>
+		</div>
+	</div>
+	<div id="modal-tasklist" class="modal">
+		<div class="modal-content">
+			<h4 class="teal-text">
+				Tasks List</h4>
+			<span data-bind="text: $root.DateFilter"></span>
+			<div class="row">
+				<div class=" col s12">
+					<table data-bind="visible: $root.FilteredTasks().length > 0">
+						<thead>
+							<tr>
+								<th class="teal-text">
+									Task
+								</th>
+								<th class="teal-text">
+									Details
+								</th>
+								<th>
+									&nbsp;
+								</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: $root.FilteredTasks">
+							<tr>
+								<td>
+									<span class="teal-text" data-bind="text: TaskTitle"></span>
+								</td>
+								<td>
+									<span class="teal-text" data-bind="text: TaskDetail"></span>
+								</td>
+								<td>
+									<a href="#" class="waves-effect waves-light btn-flat red-text" data-bind="click: $root.RemoveTask"
+										title="Delete Task">X</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- ko if: $root.FilteredTasks().length == 0 -->
+					<center><h5 class="teal-text">No tasks set on the selected day!</h5></center>
+					<!-- /ko -->
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
+		</div>
+	</div>
+	<div id="modal-events" class="modal">
+		<div class="modal-content">
+			<h4 class="teal-text">
+				Events</h4>
+			<span class="teal-text" data-bind="text: $root.DateFilter"></span>
+			<div class="row">
+				<div class=" col s12">
+					<!-- ko foreach: $root.FilteredEvents -->
+					<div class="col s10">
+						<h5 class="teal-text" data-bind="text: EventName">
+						</h5>
+						<span class="teal-text" data-bind="text: $root.getCategoryName(Category)"></span>
+						<br />
+						<span class="teal-text" data-bind="text: Venue"></span>
+					</div>
+					<div class="col s2">
+						<a href="#" class="waves-effect waves-light btn-flat red-text" data-bind="click: $root.RemoveEvent"
+							title="Delete Event">X</a>
+					</div>
+					<!-- /ko -->
+					<!-- ko if: $root.FilteredEvents().length == 0 -->
+					<center><h5 class="teal-text">No events set on the selected day!</h5></center>
+					<!-- /ko -->
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
+		</div>
+	</div>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/moment.min.js'></script>
+	<script type="text/javascript" src='js/fullcalendar.min.js'></script>
+	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/models.js"></script>
+	<script type="text/javascript" src="js/viewmodel.calendar.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
