@@ -25,6 +25,8 @@ function ProjectEvent(data){
 	this.EventDate = ko.observable(new Date(data.EventDate) || new Date());
 	this.Category = ko.observable(data.Category || "");
 	this.Venue = ko.observable(data.Venue || "");
+	this.Budget = ko.observable(data.Budget || 0);
+	this.BudgetDetails = ko.observable(data.BudgetDetails || "");
 }
 
 function EventTask(data){
