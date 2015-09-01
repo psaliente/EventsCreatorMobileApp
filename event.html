@@ -10,7 +10,8 @@
 	<div class="navbar-fixed ">
 		<nav class="teal">
 			<div class="nav-wrapper" style="padding-left: 20px;">
-				<a href="#!" class="brand-logo">Events Creator</a> <a href="#" data-activates="mobile-demo"
+				<a href="#!" class="brand-logo"><!-- ko ifnot: $root.SelectedEvent().EventID() -->Events Creator<!-- /ko --><span data-bind="text: $root.SelectedEvent().EventName()"></span></a>
+				<a href="#" data-activates="mobile-demo"
 					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="index.html">Home</a></li>
@@ -40,8 +41,8 @@
 			<div class="col s12">
 				<!-- ko foreach: $root.Events -->
 				<div class="col s10">
-					<h4 data-bind="text: EventName">
-					</h4>
+					<a href="#" data-bind="click: $root.SelectEvent"><h4 data-bind="text: EventName">
+					</h4></a>
 					<span data-bind="text: $root.getCategoryName(Category())"></span>&nbsp;/&nbsp;<span
 						data-bind="text: EventDate"></span><br />
 					<p data-bind="text: Venue">
