@@ -12,6 +12,7 @@ function BudgetTrackerViewModel(){
 		var tmpBudget = parseInt(self.SelectedEvent().Budget());
 		return tmpBudget - self.TotalExpenses();
 	});
+	self.ErrorMessage = ko.observable();
 	//public arrays
 	self.Events = ko.observableArray([]);
 	//public methods
@@ -60,9 +61,10 @@ function BudgetTrackerViewModel(){
 			var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
 			window.localStorage.setItem('ProjectEvents',jsonEvents);
 			window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
+			self.ErrorMessage(null);
 		}
 		catch (ex){
-			//sasaluhin mo pa ba si ex kung mag-fall syang muli sa'yo?
+			self.ErrorMessage("Error! " + ex + ", please contact developer."); 
 		}
 	};
 }
