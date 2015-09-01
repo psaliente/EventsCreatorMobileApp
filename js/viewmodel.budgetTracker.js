@@ -1,54 +1,42 @@
 function BudgetTrackerViewModel(){
 	var self = this;
 	//public properties
-	self.NewBudget = ko.observable();
-	self.NewExpense = ko.observable();
-	self.SelectedExpenseType = ko.observable();
-	self.TotalBudget = ko.observable();
+	self.SelectedEvent = ko.observable();
 	self.TotalSupplies = ko.observable();
 	self.TotalFoods = ko.observable();
+	self.TotalServices = ko.observable();
 	self.TotalExpenses = ko.computed(function(){
-		return self.TotalSupplies() + self.TotalFoods();
+		return self.TotalSupplies() + self.TotalFoods() + self.TotalServices();
 	});
-	//public arrays
-	self.ExpenseTypes = ["Supplies","Food"];
+	self.BudgetBalance = ko.computed(function(){
+		var tmpBudget = parseInt(self.SelectedEvent().Budget());
+		return tmpBudget - self.TotalExpenses();
+	});
 	//public methods
-	self.AddBudget = function () {
-		var tmpBudget = parseInt(self.TotalBudget());
-		self.TotalBudget(tmpBudget + parseInt(self.NewBudget()));
-		self.NewBudget(0);
-		self.UpdateLocalStorage();
-	};
-	self.AddExpense = function() {
-		if(self.SelectedExpenseType() == "Supplies"){
-			var tmpSupply = parseInt(self.TotalSupplies());
-			self.TotalSupplies(tmpSupply + parseInt(self.NewExpense()));
-		}
-		else{
-			var tmpFood = parseInt(self.TotalFoods());
-			self.TotalFoods(tmpFood + parseInt(self.NewExpense()));
-		}
-		self.NewExpense(0);
-		self.UpdateLocalStorage();
-	};
 	self.LoadFromStorage = function () {
-		var parsedTotalBudget = parseInt(window.localStorage.getItem('EventTotalBudget')) || 0;
+		var parsedSelectedEvent = JSON.parse(window.localStorage.getItem('ProjectSelectedEvent')) || {};
 		var parsedSupplies = JSON.parse(window.localStorage.getItem('EventSupplies')) || [];
 		var parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [];
-		var tmpSumSup = 0, tmpSumFud = 0;
+		var parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [];
+		var tmpSumSup = 0, tmpSumFud = 0, tmpSumSer = 0;
 		ko.utils.arrayForEach(parsedSupplies, function (item) {
 			tmpSumSup += parseInt(item.Amount);
 		});
 		ko.utils.arrayForEach(parsedFoods, function (item) {
 			tmpSumFud += parseInt(item.Amount);
 		});
-		self.TotalBudget(parsedTotalBudget);
+		ko.utils.arrayForEach(parsedServices, function (item) {
+			tmpSumSer += parseInt(item.Amount);
+		});
+		self.SelectedEvent(new ProjectEvent(parsedSelectedEvent));
 		self.TotalSupplies(tmpSumSup);
 		self.TotalFoods(tmpSumFud);
+		self.TotalServices(tmpSumSer);
 	};
 	self.UpdateLocalStorage = function() {
 		try {
-			window.localStorage.setItem('EventTotalBudget',self.TotalBudget().toString());
+			var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
+			window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
 		}
 		catch (ex){
 			//sasaluhin mo pa ba si ex kung mag-fall syang muli sa'yo?
