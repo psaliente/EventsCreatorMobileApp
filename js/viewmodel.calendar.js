@@ -1,10 +1,12 @@
 function CalendarViewModel() {
 	var self = this;
 	//public properties
+	self.SelectedEvent = ko.observable(new ProjectEvent({}));
 	self.NewTask = ko.observable(new EventTask({}));
 	self.ActiveCount = ko.observable(0);
 	self.TaskFilter = ko.observable("active");
 	self.DateFilter = ko.observable(new Date());
+	self.ErrorMessage = ko.observable();
 	//public arrays	
 	self.Events = ko.observableArray([]);
 	self.EventTasks = ko.observableArray([]);
@@ -16,10 +18,10 @@ function CalendarViewModel() {
 			case "1": catName= "Baby Shower"; break;
 			case "2": catName= "Christening"; break;
 			case "3": catName= "Birthday"; break;
-			case "4": catName="Wedding"; break;
-			case "5": catName="Funeral"; break;
-			case "6": catName="Reunion"; break;
-			case "7": catName="Conference";
+			case "4": catName= "Wedding"; break;
+			case "5": catName= "Funeral"; break;
+			case "6": catName= "Reunion"; break;
+			case "7": catName= "Conference";
 		}
 		return catName;
 	};
@@ -81,9 +83,10 @@ function CalendarViewModel() {
 			var jsonEvents = ko.toJSON(self.Events());
 			window.localStorage.setItem('ProjectEventTasks',jsonTasks);
 			window.localStorage.setItem('ProjectEvents',jsonEvents);
+			self.ErrorMessage(null);
 		}
 		catch (ex){
-			//sasaluhin mo pa ba si ex kung mag-fall syang muli sa'yo?
+			self.ErrorMessage("Error! " + ex + ", please contact developer."); 
 		}
 	};
 }
