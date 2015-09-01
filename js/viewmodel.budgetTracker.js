@@ -12,30 +12,53 @@ function BudgetTrackerViewModel(){
 		var tmpBudget = parseInt(self.SelectedEvent().Budget());
 		return tmpBudget - self.TotalExpenses();
 	});
+	//public arrays
+	self.Events = ko.observableArray([]);
 	//public methods
+	self.UpdateBudget = function(budget) {
+		self.UpdateLocalStorage();
+	}
 	self.LoadFromStorage = function () {
+		var parsedEvents = JSON.parse(window.localStorage.getItem('ProjectEvents')) || [];
 		var parsedSelectedEvent = JSON.parse(window.localStorage.getItem('ProjectSelectedEvent')) || {};
 		var parsedSupplies = JSON.parse(window.localStorage.getItem('EventSupplies')) || [];
 		var parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [];
 		var parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [];
 		var tmpSumSup = 0, tmpSumFud = 0, tmpSumSer = 0;
+		var mappedEvents = $.map(parsedEvents, function(pEvent) {
+			return new ProjectEvent(pEvent);
+		});
+		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
+		self.Events(mappedEvents);
+		ko.utils.arrayForEach(self.Events(), function(pEvent) {
+			if(pEvent.EventID() == tmpSelectedEvent.EventID()){
+				self.SelectedEvent(pEvent);
+			}
+		});
 		ko.utils.arrayForEach(parsedSupplies, function (item) {
-			tmpSumSup += parseInt(item.Amount);
+			if(item.EventID == self.SelectedEvent().EventID()){
+				tmpSumSup += parseInt(item.Amount);
+			}
 		});
 		ko.utils.arrayForEach(parsedFoods, function (item) {
-			tmpSumFud += parseInt(item.Amount);
+			if(item.EventID == self.SelectedEvent().EventID()){
+				tmpSumFud += parseInt(item.Amount);
+			}
 		});
 		ko.utils.arrayForEach(parsedServices, function (item) {
-			tmpSumSer += parseInt(item.Amount);
+			if(item.EventID == self.SelectedEvent().EventID()){
+				tmpSumSer += parseInt(item.Amount);
+			}
 		});
-		self.SelectedEvent(new ProjectEvent(parsedSelectedEvent));
 		self.TotalSupplies(tmpSumSup);
 		self.TotalFoods(tmpSumFud);
 		self.TotalServices(tmpSumSer);
 	};
 	self.UpdateLocalStorage = function() {
 		try {
+			var jsonEvents = ko.toJSON(self.Events());
 			var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
+			window.localStorage.setItem('ProjectEvents',jsonEvents);
 			window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
 		}
 		catch (ex){
