@@ -1,7 +1,7 @@
 function BudgetTrackerViewModel(){
 	var self = this;
 	//public properties
-	self.SelectedEvent = ko.observable();
+	self.SelectedEvent = ko.observable(new ProjectEvent({}));
 	self.TotalSupplies = ko.observable();
 	self.TotalFoods = ko.observable();
 	self.TotalServices = ko.observable();
