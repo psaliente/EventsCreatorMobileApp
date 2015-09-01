@@ -82,8 +82,9 @@
 				&nbsp;</h4>
 			<div class="row">
 				<div class=" col s12">
-					<h4 class="center-align">
+					<h4 class="center-align" data-bind="visible: !($root.ErrorMessage())">
 						New Event Saved!</h4>
+					<p data-bind="text: $root.ErrorMessage"></p>
 				</div>
 			</div>
 		</div>
@@ -93,6 +94,7 @@
 	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script type="text/javascript" src="js/models.js"></script>
+	<script type="text/javascript" language="javascript" src="js/PreselectedValues.json"></script>
 	<script type="text/javascript" src="js/viewmodel.index.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
