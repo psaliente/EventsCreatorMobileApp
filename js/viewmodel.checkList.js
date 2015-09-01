@@ -6,7 +6,9 @@ function CheckListViewModel(){
 	self.NewSupply = ko.observable(new Supply({}));
 	self.NewFood = ko.observable(new Food({}));
 	self.NewService = ko.observable(new Service({}));
+	self.ErrorMessage = ko.observable();
 	//public arrays
+	self.Events = ko.observableArray([]);
 	self.Guests = ko.observableArray([]);
 	self.Supplies = ko.observableArray([]);
 	self.Foods = ko.observableArray([]);
@@ -114,18 +116,22 @@ function CheckListViewModel(){
 			window.localStorage.setItem("EventSupplies",jsonSupplies);
 			window.localStorage.setItem("EventFoods",jsonFoods);
 			window.localStorage.setItem("EventServices",jsonServices);
+			self.ErrorMessage(null);
 		}
 		catch (ex){
-			//sasaluhin mo pa ba si ex kung mag-fall syang muli sa'yo?
+			self.ErrorMessage("Error! " + ex + ", please contact developer."); 
 		}
 	};
 	self.LoadFromStorage = function() {
+		var parsedEvents = JSON.parse(window.localStorage.getItem('ProjectEvents')) || [];
 		var parsedSelectedEvent = JSON.parse(window.localStorage.getItem('ProjectSelectedEvent')) || {};
 		var parsedGuests = JSON.parse(window.localStorage.getItem('EventGuests')) || [];
 		var parsedSupplies = JSON.parse(window.localStorage.getItem('EventSupplies')) || [];
 		var parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [];
 		var parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [];
-		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
+		var mappedEvents = $.map(parsedEvents, function(pEvent) {
+			return new ProjectEvent(pEvent);
+		});
 		var mappedGuests = $.map(parsedGuests, function(guest){
 			return new Guest(guest);
 		});
@@ -138,7 +144,13 @@ function CheckListViewModel(){
 		var mappedServices = $.map(parsedServices, function(service){
 			return new Service(service);
 		});
-		self.SelectedEvent(tmpSelectedEvent);
+		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
+		self.Events(mappedEvents);
+		ko.utils.arrayForEach(self.Events(), function(pEvent) {
+			if(pEvent.EventID() == tmpSelectedEvent.EventID()){
+				self.SelectedEvent(pEvent);
+			}
+		});
 		self.Guests(mappedGuests);
 		self.Supplies(mappedSupplies);
 		self.Foods(mappedFoods);
