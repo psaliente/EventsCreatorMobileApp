@@ -2,6 +2,7 @@ function EventViewModel(){
 	var self = this;
 	//public properties
 	self.SelectedEvent = ko.observable(new ProjectEvent({}));
+	self.ErrorMessage = ko.observable();
 	//public arrays
 	self.Events = ko.observableArray([]);
 	//public methods
@@ -45,10 +46,16 @@ function EventViewModel(){
 		});
 	};
 	self.UpdateLocalStorage = function() {
-		var jsonEvents = ko.toJSON(self.Events());
-		var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
-		window.localStorage.setItem('ProjectEvents',jsonEvents);
-		window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
+		try {
+			var jsonEvents = ko.toJSON(self.Events());
+			var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
+			window.localStorage.setItem('ProjectEvents',jsonEvents);
+			window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
+			self.ErrorMessage(null);
+		} 
+		catch (ex) {
+			self.ErrorMessage("Error! " + ex + ", please contact developer."); 
+		}
 	};
 }
 
