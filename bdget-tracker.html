@@ -11,7 +11,8 @@
 	<div class="navbar-fixed ">
 		<nav class="teal">
 			<div class="nav-wrapper" style="padding-left: 20px;">
-				<a href="#!" class="brand-logo">Events Creator</a> <a href="#" data-activates="mobile-demo"
+				<a href="#!" class="brand-logo"><!-- ko ifnot: $root.SelectedEvent().EventID() -->Events Creator<!-- /ko --><span data-bind="text: $root.SelectedEvent().EventName()"></span></a>
+				<a href="#" data-activates="mobile-demo"
 					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="index.html">Home</a></li>
@@ -43,21 +44,23 @@
 		<div class="row">
 			<div class="col s12">
 				<ul class="collection">
-					<li class="collection-item">Total Budget:&nbsp;<span class="right-align" data-bind="text: $root.TotalBudget"></span></li>
+					<li class="collection-item">Total Budget:&nbsp;<a href='#modal1' class="modal-trigger btn-flat"><span class="right-align" data-bind="text: $root.SelectedEvent().Budget"></a></span></li>
 					<li class="collection-item">Expenses:&nbsp;<span class="right-align" data-bind="text: $root.TotalExpenses"></span></li>
 					<li class="collection-item">Supplies:&nbsp;<span class="right-align" data-bind="text: $root.TotalSupplies"></span></li>
-					<li class="collection-item">Food:&nbsp;<span class="right-align" data-bind="text: $root.TotalFoods"></span></li>
+					<li class="collection-item">Foods:&nbsp;<span class="right-align" data-bind="text: $root.TotalFoods"></span></li>
+					<li class="collection-item">Services:&nbsp;<span class="right-align" data-bind="text: $root.TotalServices"></span></li>
+					<li class="collection-item">Balance:&nbsp;<span class="right-align" data-bind="text: $root.BudgetBalance"></span></li>
 				</ul>
 			</div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="center">
 				<a class="waves-effect waves-light btn modal-trigger col s12" href="#modal1">Add Budget</a><br>
 				<br>
 				<a class="waves-effect waves-light btn modal-trigger col s12" href="#expense-modal">
 					Add Expense</a>
 			</div>
-		</div>
+		</div> -->
 		</form>
 	</div>
 	<!-- Modal Trigger -->
@@ -68,22 +71,21 @@
 				Add Budget</h4>
 			<div class="row">
 				<div class="input-field col s12">
-					<input id="evanue" type="text" class="validate" data-bind="value: $root.NewBudget">
+					<input id="evanue" type="text" class="validate" data-bind="value: $root.SelectedEvent().Budget">
 					<label for="evanue">
 						Budget Amount</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
-					<input id="evanue" type="text" class="validate">
+					<input id="evanue" type="text" class="validate" data-bind="value: $root.SelectedEvent().BudgetDetail">
 					<label for="evanue">
 						Details</label>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"
-				data-bind="click: $root.AddBudget">ADD</a>
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Update</a>
 		</div>
 	</div>
 	<div id="expense-modal" class="modal modal-fixed-footer">
