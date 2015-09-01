@@ -41,7 +41,7 @@
 			<div class="col s12">
 				<!-- ko foreach: $root.Events -->
 				<div class="col s10">
-					<a href="#" data-bind="click: $root.SelectEvent"><h4 data-bind="text: EventName">
+					<a href="#" data-bind="click: $root.SelectEvent" class="teal-text"><h4 data-bind="text: EventName">
 					</h4></a>
 					<span data-bind="text: $root.getCategoryName(Category())"></span>&nbsp;/&nbsp;<span
 						data-bind="text: EventDate"></span><br />
@@ -50,7 +50,7 @@
 				</div>
 				<div class="col s2">
 					<a href="#" class="waves-effect waves-light btn-flat red-text" data-bind="click: $root.RemoveEvent"
-						title="Delete Event">X</a>
+						title="Delete Event" style="font-size: 1.5em;">X</a>
 				</div>
 				<!-- /ko -->
 				<!-- ko if: $root.Events().length == 0 -->
