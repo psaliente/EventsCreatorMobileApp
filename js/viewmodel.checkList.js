@@ -1,7 +1,7 @@
 function CheckListViewModel(){
 	var self = this;
 	//public properties
-	self.SelectedEvent = ko.observable();
+	self.SelectedEvent = ko.observable(new ProjectEvent({}));
 	self.NewGuest = ko.observable(new Guest({}));
 	self.NewSupply = ko.observable(new Supply({}));
 	self.NewFood = ko.observable(new Food({}));
@@ -74,7 +74,7 @@ function CheckListViewModel(){
 		self.NewService().EventID(eventID);
 		self.Services.push(self.NewService());
 		self.UpdateLocalStorage();
-		self.NewService(new Service());
+		self.NewService(new Service({}));
 	};
 	self.DeleteGuest = function (guest) {
 		var _response = confirm("Are you sure you want to remove \"" + guest.GuestName() + "\" in your guestlist?");
@@ -125,6 +125,7 @@ function CheckListViewModel(){
 		var parsedSupplies = JSON.parse(window.localStorage.getItem('EventSupplies')) || [];
 		var parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [];
 		var parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [];
+		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
 		var mappedGuests = $.map(parsedGuests, function(guest){
 			return new Guest(guest);
 		});
@@ -137,6 +138,7 @@ function CheckListViewModel(){
 		var mappedServices = $.map(parsedServices, function(service){
 			return new Service(service);
 		});
+		self.SelectedEvent(tmpSelectedEvent);
 		self.Guests(mappedGuests);
 		self.Supplies(mappedSupplies);
 		self.Foods(mappedFoods);
