@@ -8,14 +8,21 @@ function Guest(data){
 function Supply(data){
 	this.EventID = ko.observable(data.EventID || 0);
 	this.SupplyName = ko.observable(data.SupplyName || "");
-	this.Amount = ko.observable(data.Amount || "");
+	this.Amount = ko.observable(data.Amount || 0);
 	this.Checked = ko.observable(false);
 }
 
 function Food(data){
 	this.EventID = ko.observable(data.EventID || 0);
 	this.FoodName = ko.observable(data.FoodName || "");
-	this.Amount = ko.observable(data.Amount || "");
+	this.Amount = ko.observable(data.Amount || 0);
+	this.Checked = ko.observable(false);
+}
+
+function Service(data){
+	this.EventID = ko.observable(data.EventID || 0);
+	this.ServiceName = ko.observable(data.ServiceName || "");
+	this.Amount = ko.observable(data.Amount || 0);
 	this.Checked = ko.observable(false);
 }
 
