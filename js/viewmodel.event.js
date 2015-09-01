@@ -20,7 +20,7 @@ function EventViewModel(){
 		return catName;
 	};
 	self.RemoveEvent = function(pEvent) {
-		var _delete = confirm("Are you sure you want to delete the event \"" + pEvent.EventName + "\"?");
+		var _delete = confirm("Are you sure you want to delete the event \"" + pEvent.EventName() + "\"?");
 		if(_delete){
 			self.Events.remove(pEvent);
 			self.UpdateLocalStorage();
