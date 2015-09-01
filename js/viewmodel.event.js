@@ -1,7 +1,7 @@
 function EventViewModel(){
 	var self = this;
 	//public properties
-	self.SelectedEvent = ko.observable();
+	self.SelectedEvent = ko.observable(new ProjectEvent({}));
 	//public arrays
 	self.Events = ko.observableArray([]);
 	//public methods
@@ -26,7 +26,7 @@ function EventViewModel(){
 			self.UpdateLocalStorage();
 		}
 	};
-	self.SelecteEvent = function(pEvent){
+	self.SelectEvent = function(pEvent){
 		self.SelectedEvent(pEvent);
 		self.UpdateLocalStorage();
 	};
@@ -39,7 +39,7 @@ function EventViewModel(){
 		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
 		self.Events(mappedEvents);
 		ko.utils.arrayForEach(self.Events(), function(pEvent) {
-			if(pEvent == tmpSelectedEvent){
+			if(pEvent.EventID() == tmpSelectedEvent.EventID()){
 				self.SelectedEvent(tmpSelectedEvent);
 			}
 		});
