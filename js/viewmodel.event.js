@@ -26,16 +26,29 @@ function EventViewModel(){
 			self.UpdateLocalStorage();
 		}
 	};
+	self.SelecteEvent = function(pEvent){
+		self.SelectedEvent(pEvent);
+		self.UpdateLocalStorage();
+	};
 	self.LoadFromStorage = function () {
 		var parsedEvents = JSON.parse(window.localStorage.getItem('ProjectEvents')) || [];
+		var parsedSelectedEvent = JSON.parse(window.localStorage.getItem('ProjectSelectedEvent')) || {};
 		var mappedEvents = $.map(parsedEvents, function(pEvent) {
 			return new ProjectEvent(pEvent);
 		});
+		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
 		self.Events(mappedEvents);
+		ko.utils.arrayForEach(self.Events(), function(pEvent) {
+			if(pEvent == tmpSelectedEvent){
+				self.SelectedEvent(tmpSelectedEvent);
+			}
+		});
 	};
 	self.UpdateLocalStorage = function() {
 		var jsonEvents = ko.toJSON(self.Events());
+		var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
 		window.localStorage.setItem('ProjectEvents',jsonEvents);
+		window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
 	};
 }
 
