@@ -71,8 +71,8 @@
 							<!-- ko foreach: $data -->
 							<td style="padding-top: 0px; padding-bottom: 0px;">
 								<!-- ko if: $data -->
-								<div style="cursor: pointer; margin: 0px; width: 99%; height: 2em;" class="valign-wrapper modal-trigger waves-effect" 
-								data-target="modal-events" data-bind="click: $root.setDateFilter, css: { 'date-selected': $root.isSelected($data)}">
+								<div class="valign-wrapper waves-effect date-cell" 
+								data-bind="click: $root.setDateFilter, css: { 'date-selected': $root.isSelected($data)}">
 									<center><span data-bind="text: $data, css: { 'date-event': $root.hasEvent($data) }" class="valign"></span></center>
 								</div>
 								<!-- /ko -->

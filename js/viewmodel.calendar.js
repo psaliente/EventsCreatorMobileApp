@@ -64,6 +64,7 @@ function CalendarViewModel() {
 	self.setDateFilter = function(day) {
 		var tmpDate = new Date(self.SelectedYear(), self.SelectedMonth(), day);
 		self.DateFilter(tmpDate);
+		$('#modal-events').openModal();
 	};
 	self.hasEvent = function(day) {
 		var res = false;
