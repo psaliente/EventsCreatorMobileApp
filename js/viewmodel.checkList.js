@@ -81,29 +81,37 @@ function CheckListViewModel(){
 	self.DeleteGuest = function (guest) {
 		var _response = confirm("Are you sure you want to remove \"" + guest.GuestName() + "\" in your guestlist?");
 		if(_response){
+			var _name = guest.GuestName();
 			self.Guests.remove(guest);
 			self.UpdateLocalStorage();
+			Materialize.toast(_name + ' has been deleted', 3000);
 		}
 	};
 	self.DeleteSupply = function (supply){
 		var _response = confirm("Are you sure you want to remove \"" + supply.SupplyName() + "\" in your list?");
 		if(_response){
+			var _name = supply.SupplyName();
 			self.Supplies.remove(supply);
 			self.UpdateLocalStorage();
+			Materialize.toast(_name + ' has been deleted', 3000);
 		}
 	};
 	self.DeleteFood = function (food) {
 		var _response = confirm("Are you sure you want to remove \"" + food.FoodName() + "\" in your list?");
 		if(_response){
+			var _name = food.FoodName();
 			self.Foods.remove(food);
 			self.UpdateLocalStorage();
+			Materialize.toast(_name + ' has been deleted', 3000);
 		}
 	};
 	self.DeleteService = function (service) {
 		var _response = confirm("Are you sure you want to remove \"" + service.ServiceName() + "\" in your list?");
 		if(_response){
+			var _name = service.ServiceName();
 			self.Services.remove(service);
 			self.UpdateLocalStorage();
+			Materialize.toast(_name + ' has been deleted', 3000);
 		}
 	};
 	self.UpdateLocalStorage = function() {

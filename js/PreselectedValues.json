@@ -1,5 +1,5 @@
 var PreSelectedValues = [ 
-{"CategoryID" : "1", 
+{"CategoryID" : "1", "CategoryName":"Baby Shower", 
 	"InitialSupplies" : [
 		{"SupplyName":"sabon", "Amount":"20"},
 		{"SupplyName":"twalya", "Amount":"20"}], 
@@ -7,14 +7,14 @@ var PreSelectedValues = [
 		{"FoodName":"cereal", "Amount":"50"}], 
 	"InitialServices" : [
 		{"ServiceName":"baby bath", "Amount":"250"}]},
-{"CategoryID" : "2", 
+{"CategoryID" : "2", "CategoryName":"Christening", 
 	"InitialSupplies" : [
 		{"SupplyName":"holy water", "Amount":"20"}], 
 	"InitialFoods" : [
 		{"FoodName":"ostya", "Amount":"50"}], 
 	"InitialServices" : [
 		{"ServiceName":"binyag ng pari", "Amount":"250"}]},
-{"CategoryID" : "3", 
+{"CategoryID" : "3", "CategoryName":"Birthday", 
 	"InitialSupplies" : [
 		{"SupplyName":"baloons", "Amount":"500"},
 		{"SupplyName":"chairs", "Amount":"500"},
@@ -26,7 +26,7 @@ var PreSelectedValues = [
 	"InitialServices" : [
 		{"ServiceName":"catering", "Amount":"250"},
 		{"ServiceName":"clowns", "Amount":"250"}]},
-{"CategoryID" : "4", 
+{"CategoryID" : "4", "CategoryName":"Wedding", 
 	"InitialSupplies" : [
 		{"SupplyName":"supply1", "Amount":"8000"},
 		{"SupplyName":"supply2", "Amount":"20"},
@@ -39,7 +39,7 @@ var PreSelectedValues = [
 		{"ServiceName":"service1", "Amount":"250"},
 		{"ServiceName":"service2", "Amount":"20"},
 		{"ServiceName":"service3", "Amount":"20"}]},
-{"CategoryID" : "5", 
+{"CategoryID" : "5", "CategoryName":"Funeral", 
 	"InitialSupplies" : [
 		{"SupplyName":"kabaong", "Amount" : "8000"},
 		{"SupplyName":"kandila", "Amount" : "20"},
@@ -51,8 +51,9 @@ var PreSelectedValues = [
 	"InitialServices" : [
 		{"ServiceName":"makeup", "Amount":"250"},
 		{"ServiceName":"imbalsamo", "Amount" :"20"},
+		{"ServiceName":"karo express", "Amount" :"500"},
 		{"ServiceName":"taga-iyak", "Amount" :"20"}]},
-{"CategoryID" : "6", 
+{"CategoryID" : "6", "CategoryName":"Reunion", 
 	"InitialSupplies" : [
 		{"SupplyName":"supply1", "Amount" : "8000"},
 		{"SupplyName":"supply2", "Amount" : "20"},
@@ -65,7 +66,7 @@ var PreSelectedValues = [
 		{"ServiceName": "service1", "Amount": "250"},
 		{"ServiceName":"service2", "Amount" : "20"},
 		{"ServiceName":"service3", "Amount" : "20"}]},
-{"CategoryID" : "7", 
+{"CategoryID" : "7", "CategoryName":"Conference", 
 	"InitialSupplies" : [
 		{"SupplyName":"supply1", "Amount" : "8000"},
 		{"SupplyName":"supply2", "Amount" : "20"},

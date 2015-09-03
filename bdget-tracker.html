@@ -49,18 +49,10 @@
 					<li class="collection-item">Supplies:&nbsp;<span class="right-align" data-bind="text: $root.TotalSupplies"></span></li>
 					<li class="collection-item">Foods:&nbsp;<span class="right-align" data-bind="text: $root.TotalFoods"></span></li>
 					<li class="collection-item">Services:&nbsp;<span class="right-align" data-bind="text: $root.TotalServices"></span></li>
-					<li class="collection-item">Balance:&nbsp;<span class="right-align" data-bind="text: $root.BudgetBalance"></span></li>
+					<li class="collection-item">Balance:&nbsp;<span class="right-align" data-bind="text: $root.BudgetBalance, css: {'red-text': $root.BudgetBalance() < 0}"></span></li>
 				</ul>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<div class="center">
-				<a class="waves-effect waves-light btn modal-trigger col s12" href="#modal1">Add Budget</a><br>
-				<br>
-				<a class="waves-effect waves-light btn modal-trigger col s12" href="#expense-modal">
-					Add Expense</a>
-			</div>
-		</div> -->
 		</form>
 	</div>
 	<!-- Modal Trigger -->
