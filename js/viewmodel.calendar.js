@@ -1,16 +1,65 @@
 function CalendarViewModel() {
+	//private properties
 	var self = this;
+	var currentDate = new Date();
 	//public properties
 	self.SelectedEvent = ko.observable(new ProjectEvent({}));
 	self.NewTask = ko.observable(new EventTask({}));
 	self.ActiveCount = ko.observable(0);
 	self.TaskFilter = ko.observable("active");
-	self.DateFilter = ko.observable(new Date());
+	self.DateFilter = ko.observable(currentDate);
+	self.SelectedMonth = ko.observable(currentDate.getMonth());
+	self.SelectedYear = ko.observable(currentDate.getFullYear());
 	self.ErrorMessage = ko.observable();
 	//public arrays	
 	self.Events = ko.observableArray([]);
 	self.EventTasks = ko.observableArray([]);
+	self.Months = [{id:0, monthName: "January"},{id:1, monthName: "February"},{id:2, monthName: "March"},{id:3, monthName: "April"},{id:4, monthName: "May"},{id:5, monthName: "June"},
+	{id:6, monthName: "July"},{id:7, monthName: "August"},{id:8, monthName: "September"},{id:9, monthName: "October"},{id:10, monthName: "November"},{id:11, monthName: "December"}];
+	self.Years = [2015,2016,2017,2018,2019,2020,2021];
 	//public methods
+	self.days = ko.computed(function () {
+		var tmpDays = new Array(6), dayCtr = 1;
+		var trigMo = self.SelectedMonth();
+		var trigYr = self.SelectedYear();
+		var firstDay = new Date(trigYr, trigMo, 1).getDay();
+		var daysLimit = new Date(trigYr, trigMo + 1, 0).getDate();
+		for(var rows = 0; rows < 6; rows++){
+			tmpDays[rows] = new Array(7);
+			for(var cols = 0; cols < 7; cols++){
+				if((!rows && cols >= firstDay) || (rows && dayCtr <= daysLimit)){
+					tmpDays[rows][cols] = dayCtr++;
+				}
+				else{
+					tmpDays[rows][cols] = 0;
+				}
+			}
+		}
+		return tmpDays;
+	});
+	self.setDateFilter = function(day) {
+		var tmpDate = new Date(self.SelectedYear(), self.SelectedMonth(), day);
+		self.DateFilter(tmpDate);
+	};
+	self.hasEvent = function(day) {
+		var res = false;
+		var tmpDate = new Date(self.SelectedYear(), self.SelectedMonth(), day);
+		ko.utils.arrayForEach(self.Events(), function (pEvent) {
+			var tmpEventDate = new Date(pEvent.EventDate).setHours(0,0,0,0);
+			if (tmpDate.valueOf() == tmpEventDate.valueOf()){
+				res = true;
+				return false;
+			}
+		});
+		return res;
+	};
+	self.isSelected = function(day) {
+		var res = false;
+		if(day == self.DateFilter().getDate()){
+			res = true;
+		}
+		return res;
+	};
 	self.getCategoryName = function(categoryID){
 		var catName = "";
 		switch(categoryID)
@@ -57,15 +106,19 @@ function CalendarViewModel() {
 	self.RemoveTask = function(task) {
 		var _delete = confirm("Are you sure you want to delete the task \"" + task.TaskTitle + "\"?");
 		if(_delete){
+			var _name = task.TaskTitle;
 			self.EventTasks.remove(task);
 			self.UpdateLocalStorage();
+			Materialize.toast(_name + ' has been deleted', 3000);
 		}
 	};
 	self.RemoveEvent = function(pEvent) {
 		var _delete = confirm("Are you sure you want to delete the event \"" + pEvent.EventName + "\"?");
 		if(_delete){
+			var _name = pEvent.EventName;
 			self.Events.remove(pEvent);
 			self.UpdateLocalStorage();
+			Materialize.toast(_name + ' has been deleted', 3000);
 		}
 	}
 	self.LoadFromStorage = function () {

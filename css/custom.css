@@ -1,0 +1,9 @@
+.date-event{
+	font-weight: bolder;
+	color: red;
+}
+
+.date-selected{
+	background-color: orange;
+	border-radius: 10%;
+}

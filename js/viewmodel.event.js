@@ -5,6 +5,10 @@ function EventViewModel(){
 	self.ErrorMessage = ko.observable();
 	//public arrays
 	self.Events = ko.observableArray([]);
+	//private methods
+	var DisposeRelatedItems = function(eventID){
+		
+	};
 	//public methods
 	self.getCategoryName = function(categoryID){
 		var catName = "";
@@ -23,13 +27,16 @@ function EventViewModel(){
 	self.RemoveEvent = function(pEvent) {
 		var _delete = confirm("Are you sure you want to delete the event \"" + pEvent.EventName() + "\"?");
 		if(_delete){
+			var eventname = pEvent.EventName();
 			self.Events.remove(pEvent);
 			self.UpdateLocalStorage();
+			Materialize.toast(eventname + ' has been deleted', 3000);
 		}
 	};
 	self.SelectEvent = function(pEvent){
 		self.SelectedEvent(pEvent);
 		self.UpdateLocalStorage();
+		return true;
 	};
 	self.LoadFromStorage = function () {
 		var parsedEvents = JSON.parse(window.localStorage.getItem('ProjectEvents')) || [];
