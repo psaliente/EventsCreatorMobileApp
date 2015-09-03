@@ -8,21 +8,21 @@ function Guest(data){
 function Supply(data){
 	this.EventID = ko.observable(data.EventID || 0);
 	this.SupplyName = ko.observable(data.SupplyName || "");
-	this.Amount = ko.observable(data.Amount || 0);
+	this.Amount = ko.observable(data.Amount || 0).extend({numeric: 2});
 	this.Checked = ko.observable(false);
 }
 
 function Food(data){
 	this.EventID = ko.observable(data.EventID || 0);
 	this.FoodName = ko.observable(data.FoodName || "");
-	this.Amount = ko.observable(data.Amount || 0);
+	this.Amount = ko.observable(data.Amount || 0).extend({numeric: 2});
 	this.Checked = ko.observable(false);
 }
 
 function Service(data){
 	this.EventID = ko.observable(data.EventID || 0);
 	this.ServiceName = ko.observable(data.ServiceName || "");
-	this.Amount = ko.observable(data.Amount || 0);
+	this.Amount = ko.observable(data.Amount || 0).extend({numeric: 2});
 	this.Checked = ko.observable(false);
 }
 
@@ -32,7 +32,7 @@ function ProjectEvent(data){
 	this.EventDate = ko.observable(new Date(data.EventDate) || new Date());
 	this.Category = ko.observable(data.Category || "");
 	this.Venue = ko.observable(data.Venue || "");
-	this.Budget = ko.observable(data.Budget || 0);
+	this.Budget = ko.observable(data.Budget || 0).extend({numeric: 2});
 	this.BudgetDetails = ko.observable(data.BudgetDetails || "");
 }
 

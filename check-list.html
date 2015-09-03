@@ -40,7 +40,7 @@
 		<li class="tab col s3"><a href="#test3" class="tab-items white-text">Food</a></li>
 		<li class="tab col s3"><a href="#test4" class="tab-items white-text">Services</a></li>
 	</ul>
-	<form>
+	<form action="#">
 		<div class="col s12">
 			<center>
 				<span data-bind="text: $root.ErrorMessage"></span>
@@ -53,7 +53,8 @@
 						<tbody data-bind="foreach: $root.FilteredGuests">
 							<tr>
 								<td>
-									<i class="material-icons">perm_identity</i>&nbsp;<input type="checkbox" data-bind="checked: WillAttend"/>
+									<i class="material-icons">perm_identity</i>&nbsp;<input type="checkbox" data-bind="checked: WillAttend, uniqueId: WillAttend"/>
+									<label data-bind="uniqueFor: WillAttend">&nbsp;</label>
 								</td>
 								<td>
 									<span data-bind="text: GuestName"></span>
@@ -86,7 +87,8 @@
 						<tbody data-bind="foreach: $root.FilteredSupplies">
 							<tr>
 								<td>
-									<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked" />
+									<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked, uniqueId: Checked"/>
+									<label data-bind="uniqueFor: Checked">&nbsp;</label>
 								</td>
 								<td>
 									<span data-bind="text: SupplyName"></span>
@@ -119,7 +121,8 @@
 						<tbody data-bind="foreach: $root.FilteredFoods">
 							<tr>
 								<td>
-									<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked" />
+									<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked, uniqueId: Checked"/>
+									<label data-bind="uniqueFor: Checked">&nbsp;</label>
 								</td>
 								<td>
 									<span data-bind="text: FoodName"></span>
@@ -152,7 +155,8 @@
 						<tbody data-bind="foreach: $root.FilteredServices">
 							<tr>
 								<td>
-									<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked" />
+									<i class="material-icons">shopping_cart</i>&nbsp;<input type="checkbox" data-bind="checked: Checked, uniqueId: Checked"/>
+									<label data-bind="uniqueFor: Checked">&nbsp;</label>
 								</td>
 								<td>
 									<span data-bind="text: ServiceName"></span>
@@ -324,6 +328,7 @@
 	<script type="text/javascript" src='js/jquery.min.js'></script>
 	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/ko.customHelpers.js"></script>
 	<script type="text/javascript" src="js/models.js"></script>
 	<script type="text/javascript" src="js/viewmodel.checkList.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>

@@ -54,7 +54,7 @@
 				</select>
 			</div>
 			<div class="col s11">
-				<table>
+				<table class="picker__table">
 					<thead>
 						<tr>
 							<th>Sun</th>
@@ -69,11 +69,10 @@
 					<tbody data-bind="foreach: $root.days">
 						<tr>
 							<!-- ko foreach: $data -->
-							<td style="padding-top: 0px; padding-bottom: 0px;">
+							<td data-bind="css: { 'date-selected': $root.isSelected($data)}">
 								<!-- ko if: $data -->
-								<div class="valign-wrapper waves-effect date-cell" 
-								data-bind="click: $root.setDateFilter, css: { 'date-selected': $root.isSelected($data)}">
-									<center><span data-bind="text: $data, css: { 'date-event': $root.hasEvent($data) }" class="valign"></span></center>
+								<div class="picker__day picker__day--infocus" data-bind="click: $root.setDateFilter">
+									<span data-bind="text: $data, css: { 'date-event': $root.hasEvent($data) }"></span>
 								</div>
 								<!-- /ko -->
 								&nbsp;
@@ -185,9 +184,7 @@
 					<div class="col s10">
 						<h5 class="teal-text" data-bind="text: EventName">
 						</h5>
-						<span class="teal-text" data-bind="text: $root.getCategoryName(Category)"></span>
-						<br />
-						<span class="teal-text" data-bind="text: Venue"></span>
+						<span class="teal-text" data-bind="text: $root.getCategoryName(Category)"></span> at <span class="teal-text" data-bind="text: Venue"></span>
 					</div>
 					<div class="col s2">
 						<a href="#" class="waves-effect waves-light btn-flat red-text" data-bind="click: $root.RemoveEvent"
@@ -210,6 +207,7 @@
 	<script type="text/javascript" src='js/fullcalendar.min.js'></script>
 	<script type="text/javascript" src="js/knockout-3.3.0.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/ko.customHelpers.js"></script>
 	<script type="text/javascript" src="js/models.js"></script>
 	<script type="text/javascript" src="js/viewmodel.calendar.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
