@@ -1,7 +1,12 @@
-function EventViewModel(){
-	var self = this;
+/*jslint nomen: true*/
+/*global $, ko, Materialize, confirm*/
+function EventViewModel() {
+    "use strict";
+    //private properties
+	var self = this,
+        disposeRelatedItems;
 	//public properties
-	self.SelectedEvent = ko.observable(new ProjectEvent({}));
+	self.SelectedEvent = ko.observable(new window.KoModels.ProjectEvent({}));
 	self.ErrorMessage = ko.observable();
 	//public arrays
 	self.Events = ko.observableArray([]);
@@ -10,81 +15,97 @@ function EventViewModel(){
 	self.Foods = ko.observableArray([]);
 	self.Services = ko.observableArray([]);
 	//private methods
-	var DisposeRelatedItems = function(eventID){
+	disposeRelatedItems = function (eventID) {
 		var guestsToDel = [], foodsToDel = [], suppliesToDel = [], servicesToDel = [];
-		ko.utils.arrayForEach(self.Guests(), function(item) {
-			if(guest.EventID() == eventID) guestsToDel.push(item);
+		ko.utils.arrayForEach(self.Guests(), function (item) {
+			if (item.EventID() === eventID) { guestsToDel.push(item); }
 		});
-		ko.utils.arrayForEach(self.Supplies(), function(item) {
-			if(guest.EventID() == eventID) suppliesToDel.push(item);
+		ko.utils.arrayForEach(self.Supplies(), function (item) {
+			if (item.EventID() === eventID) { suppliesToDel.push(item); }
 		});
-		ko.utils.arrayForEach(self.Foods(), function(item) {
-			if(guest.EventID() == eventID) foodsToDel.push(item);
+		ko.utils.arrayForEach(self.Foods(), function (item) {
+			if (item.EventID() === eventID) { foodsToDel.push(item); }
 		});
-		ko.utils.arrayForEach(self.Services(), function(item) {
-			if(guest.EventID() == eventID) servicesToDel.push(item);
+		ko.utils.arrayForEach(self.Services(), function (item) {
+			if (item.EventID() === eventID) { servicesToDel.push(item); }
 		});
-		ko.utils.arrayForEach(guestsToDel, function(toDel) { self.Guests.remove(toDel); });
-		ko.utils.arrayForEach(suppliesToDel, function(toDel) { self.Supplies.remove(toDel); });
-		ko.utils.arrayForEach(foodsToDel, function(toDel) { self.Foods.remove(toDel); });
-		ko.utils.arrayForEach(servicesToDel, function(toDel) { self.Services.remove(toDel); });
+		ko.utils.arrayForEach(guestsToDel, function (toDel) { self.Guests.remove(toDel); });
+		ko.utils.arrayForEach(suppliesToDel, function (toDel) { self.Supplies.remove(toDel); });
+		ko.utils.arrayForEach(foodsToDel, function (toDel) { self.Foods.remove(toDel); });
+		ko.utils.arrayForEach(servicesToDel, function (toDel) { self.Services.remove(toDel); });
 	};
 	//public methods
-	self.getCategoryName = function(categoryID){
+	self.getCategoryName = function (categoryID) {
 		var catName = "";
-		switch(categoryID)
-		{
-			case "1": catName= "Baby Shower"; break;
-			case "2": catName= "Christening"; break;
-			case "3": catName= "Birthday"; break;
-			case "4": catName="Wedding"; break;
-			case "5": catName="Funeral"; break;
-			case "6": catName="Reunion"; break;
-			case "7": catName="Conference";
+		switch (categoryID) {
+        case "1":
+            catName = "Baby Shower";
+            break;
+        case "2":
+            catName = "Christening";
+            break;
+        case "3":
+            catName = "Birthday";
+            break;
+        case "4":
+            catName = "Wedding";
+            break;
+        case "5":
+            catName = "Funeral";
+            break;
+        case "6":
+            catName = "Reunion";
+            break;
+        case "7":
+            catName = "Conference";
+            break;
 		}
 		return catName;
 	};
-	self.RemoveEvent = function(pEvent) {
-		var _delete = confirm("Are you sure you want to delete the event \"" + pEvent.EventName() + "\"?");
-		if(_delete){
-			var eventname = pEvent.EventName(), eventID = pEvent.EventID();
+	self.RemoveEvent = function (pEvent) {
+		var _delete = confirm("Are you sure you want to delete the event \"" + pEvent.EventName() + "\"?"),
+            _eventName,
+            _eventID;
+		if (_delete) {
+			_eventName = pEvent.EventName();
+            _eventID = pEvent.EventID();
 			self.Events.remove(pEvent);
-			DisposeRelatedItems(eventID);
+			disposeRelatedItems(_eventID);
 			self.UpdateLocalStorage();
-			Materialize.toast(eventname + ' has been deleted', 3000);
+			Materialize.toast(_eventName + ' has been deleted', 3000);
 		}
 	};
-	self.SelectEvent = function(pEvent){
+	self.SelectEvent = function (pEvent) {
 		self.SelectedEvent(pEvent);
 		self.UpdateLocalStorage();
 		return true;
 	};
 	self.LoadFromStorage = function () {
-		var parsedEvents = JSON.parse(window.localStorage.getItem('ProjectEvents')) || [];
-		var parsedSelectedEvent = JSON.parse(window.localStorage.getItem('ProjectSelectedEvent')) || {};
-		var parsedGuests = JSON.parse(window.localStorage.getItem('EventGuests')) || [];
-		var parsedSupplies = JSON.parse(window.localStorage.getItem('EventSupplies')) || [];
-		var parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [];
-		var parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [];
-		var mappedEvents = $.map(parsedEvents, function(pEvent) {
-			return new ProjectEvent(pEvent);
-		});
-		var mappedGuests = $.map(parsedGuests, function(guest){
-			return new Guest(guest);
-		});
-		var mappedSupplies = $.map(parsedSupplies, function(supply){
-			return new Supply(supply);
-		});
-		var mappedFoods = $.map(parsedFoods, function(food){
-			return new Food(food);
-		});
-		var mappedServices = $.map(parsedServices, function(service){
-			return new Service(service);
-		});
-		var tmpSelectedEvent = new ProjectEvent(parsedSelectedEvent);
+		var parsedEvents = JSON.parse(window.localStorage.getItem('ProjectEvents')) || [],
+            parsedSelectedEvent = JSON.parse(window.localStorage.getItem('ProjectSelectedEvent')) || {},
+            parsedGuests = JSON.parse(window.localStorage.getItem('EventGuests')) || [],
+            parsedSupplies = JSON.parse(window.localStorage.getItem('EventSupplies')) || [],
+            parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [],
+            parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [],
+            mappedEvents = $.map(parsedEvents, function (pEvent) {
+                return new window.KoModels.ProjectEvent(pEvent);
+            }),
+            mappedGuests = $.map(parsedGuests, function (guest) {
+                return new window.KoModels.Guest(guest);
+            }),
+            mappedSupplies = $.map(parsedSupplies, function (supply) {
+                return new window.KoModels.Supply(supply);
+            }),
+            mappedFoods = $.map(parsedFoods, function (food) {
+                return new window.KoModels.Food(food);
+            }),
+            mappedServices = $.map(parsedServices, function (service) {
+                return new window.KoModels.Service(service);
+            }),
+            tmpSelectedEvent = new window.KoModels.ProjectEvent(parsedSelectedEvent);
 		self.Events(mappedEvents);
-		ko.utils.arrayForEach(self.Events(), function(pEvent) {
-			if(pEvent.EventID() == tmpSelectedEvent.EventID()){
+		ko.utils.arrayForEach(self.Events(), function (pEvent) {
+			if (pEvent.EventID() === tmpSelectedEvent.EventID()) {
 				self.SelectedEvent(tmpSelectedEvent);
 			}
 		});
@@ -93,28 +114,27 @@ function EventViewModel(){
 		self.Foods(mappedFoods);
 		self.Services(mappedServices);
 	};
-	self.UpdateLocalStorage = function() {
+	self.UpdateLocalStorage = function () {
 		try {
-			var jsonEvents = ko.toJSON(self.Events());
-			var jsonSelectedEvent = ko.toJSON(self.SelectedEvent());
-			var jsonGuests = ko.toJSON(self.Guests());
-			var jsonSupplies = ko.toJSON(self.Supplies());
-			var jsonFoods = ko.toJSON(self.Foods());
-			var jsonServices = ko.toJSON(self.Services());
-			window.localStorage.setItem('ProjectEvents',jsonEvents);
-			window.localStorage.setItem('ProjectSelectedEvent',jsonSelectedEvent);
-			window.localStorage.setItem("EventGuests",jsonGuests);
-			window.localStorage.setItem("EventSupplies",jsonSupplies);
-			window.localStorage.setItem("EventFoods",jsonFoods);
-			window.localStorage.setItem("EventServices",jsonServices);
+			var jsonEvents = ko.toJSON(self.Events()),
+                jsonSelectedEvent = ko.toJSON(self.SelectedEvent()),
+                jsonGuests = ko.toJSON(self.Guests()),
+                jsonSupplies = ko.toJSON(self.Supplies()),
+                jsonFoods = ko.toJSON(self.Foods()),
+                jsonServices = ko.toJSON(self.Services());
+			window.localStorage.setItem('ProjectEvents', jsonEvents);
+			window.localStorage.setItem('ProjectSelectedEvent', jsonSelectedEvent);
+			window.localStorage.setItem("EventGuests", jsonGuests);
+			window.localStorage.setItem("EventSupplies", jsonSupplies);
+			window.localStorage.setItem("EventFoods", jsonFoods);
+			window.localStorage.setItem("EventServices", jsonServices);
 			self.ErrorMessage(null);
-		} 
-		catch (ex) {
-			self.ErrorMessage("Error! " + ex + ", please contact developer."); 
+		} catch (ex) {
+			self.ErrorMessage("Error! " + ex + ", please contact developer.");
 		}
 	};
 }
 
 var evm = new EventViewModel();
 
-$(document).ready(function () {ko.applyBindings(evm);evm.LoadFromStorage();});
+$(document).ready(function () { "use strict"; ko.applyBindings(evm); evm.LoadFromStorage(); });
