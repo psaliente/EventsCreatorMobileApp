@@ -30,15 +30,15 @@ function IndexViewModel() {
 		try {
 			var _id = parseInt(self.Category(), 10) - 1;
 			ko.utils.arrayForEach(PreSelectedValues[_id].InitialSupplies, function (supply) {
-				var tmpSupply = new Supply($.extend({}, supply, {EventID: eventID}));
+				var tmpSupply = new window.KoModels.Supply($.extend({}, supply, {EventID: eventID}));
 				self.Supplies.push(tmpSupply);
 			});
 			ko.utils.arrayForEach(PreSelectedValues[_id].InitialFoods, function (food) {
-				var tmpFood = new Food($.extend({}, food, {EventID: eventID}));
+				var tmpFood = new window.KoModels.Food($.extend({}, food, {EventID: eventID}));
 				self.Foods.push(tmpFood);
 			});
 			ko.utils.arrayForEach(PreSelectedValues[_id].InitialServices, function (service) {
-				var tmpService = new Supply($.extend({}, service, {EventID: eventID}));
+				var tmpService = new window.KoModels.Service($.extend({}, service, {EventID: eventID}));
 				self.Services.push(tmpService);
 			});
 			self.ErrorMessage(null);
@@ -66,13 +66,13 @@ function IndexViewModel() {
             parsedFoods = JSON.parse(window.localStorage.getItem('EventFoods')) || [],
             parsedServices = JSON.parse(window.localStorage.getItem('EventServices')) || [],
             mappedSupplies = $.map(parsedSupplies, function (supply) {
-                return new Supply(supply);
+                return new window.KoModels.Supply(supply);
             }),
             mappedFoods = $.map(parsedFoods, function (food) {
-                return new Food(food);
+                return new window.KoModels.Food(food);
             }),
             mappedServices = $.map(parsedServices, function (service) {
-                return new Service(service);
+                return new window.KoModels.Service(service);
             });
 		self.Events(parsedEvents);
 		self.Supplies(mappedSupplies);

@@ -5,28 +5,28 @@ window.KoModels = {
         this.EventID = ko.observable(data.EventID || 0);
         this.GuestName = ko.observable(data.GuestName || "");
         this.Contact = ko.observable(data.Contact || "");
-        this.WillAttend = ko.observable(false);
+        this.WillAttend = ko.observable(data.WillAttend || false);
     },
     Supply : function Supply(data) {
         "use strict";
         this.EventID = ko.observable(data.EventID || 0);
         this.SupplyName = ko.observable(data.SupplyName || "");
         this.Amount = ko.observable(data.Amount || 0).extend({numeric: 2});
-        this.Checked = ko.observable(false);
+        this.Checked = ko.observable(data.Checked || false);
     },
     Food : function Food(data) {
         "use strict";
         this.EventID = ko.observable(data.EventID || 0);
         this.FoodName = ko.observable(data.FoodName || "");
         this.Amount = ko.observable(data.Amount || 0).extend({numeric: 2});
-        this.Checked = ko.observable(false);
+        this.Checked = ko.observable(data.Checked || false);
     },
     Service : function Service(data) {
         "use strict";
         this.EventID = ko.observable(data.EventID || 0);
         this.ServiceName = ko.observable(data.ServiceName || "");
         this.Amount = ko.observable(data.Amount || 0).extend({numeric: 2});
-        this.Checked = ko.observable(false);
+        this.Checked = ko.observable(data.Checked || false);
     },
     ProjectEvent : function ProjectEvent(data) {
         "use strict";

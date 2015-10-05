@@ -12,24 +12,24 @@
 	<div class="navbar-fixed ">
 		<nav class="teal" style="box-shadow: none !important;">
 			<div class="nav-wrapper" style="padding-left: 20px;">
-				<a href="event.html" class="brand-logo"><!-- ko ifnot: $root.SelectedEvent().EventID() -->Events Creator<!-- /ko --><span data-bind="text: $root.SelectedEvent().EventName()"></span></a>
+				<a href="event.html" data-bind="click: function () { UpdateLocalStorage(); return true; }" class="brand-logo"><!-- ko ifnot: $root.SelectedEvent().EventID() -->Events Creator<!-- /ko --><span data-bind="text: $root.SelectedEvent().EventName()"></span></a>
 				<a href="#" data-activates="mobile-demo"
 					class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="event.html">Events</a></li>
-					<li><a href="calendar.html">Calendar</a></li>
-					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
-					<li><a href="directory.html">Directory</a></li>
-					<li><a href="check-list.html">Checklist</a></li>
+					<li><a href="index.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Home</a></li>
+					<li><a href="event.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Events</a></li>
+					<li><a href="calendar.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Task Tracker</a></li>
+					<li><a href="bdget-tracker.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Budget Tracker</a></li>
+					<li><a href="directory.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Directory</a></li>
+					<li><a href="check-list.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Checklist</a></li>
 				</ul>
 				<ul class="side-nav" id="mobile-demo">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="event.html">Events</a></li>
-					<li><a href="calendar.html">Calendar</a></li>
-					<li><a href="bdget-tracker.html">Budget Tracker</a></li>
-					<li><a href="directory.html">Directory</a></li>
-					<li><a href="check-list.html">Checklist</a></li>
+					<li><a href="index.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Home</a></li>
+					<li><a href="event.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Events</a></li>
+					<li><a href="calendar.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Task Tracker</a></li>
+					<li><a href="bdget-tracker.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Budget Tracker</a></li>
+					<li><a href="directory.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Directory</a></li>
+					<li><a href="check-list.html" data-bind="click: function () { UpdateLocalStorage(); return true; }">Checklist</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -69,7 +69,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- ko if: $root.Guests().length == 0-->
+					<!-- ko if: $root.FilteredGuests().length == 0-->
 					<h4 class="center-align">
 						No guests yet.</h4>
 					<!-- /ko -->
@@ -103,7 +103,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- ko if: $root.Supplies().length == 0-->
+					<!-- ko if: $root.FilteredSupplies().length == 0-->
 					<h4 class="center-align">
 						No supplies yet.</h4>
 					<!-- /ko -->
@@ -137,7 +137,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- ko if: $root.Foods().length == 0-->
+					<!-- ko if: $root.FilteredFoods().length == 0-->
 					<h4 class="center-align">
 						No foods yet.</h4>
 					<!-- /ko -->
@@ -171,7 +171,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- ko if: $root.Foods().length == 0-->
+					<!-- ko if: $root.FilteredServices().length == 0-->
 					<h4 class="center-align">
 						No services yet.</h4>
 					<!-- /ko -->
